@@ -341,7 +341,7 @@ function action(name){
   if(name==="mc"||name==="mplus"||name==="mminus") $("status").textContent="Memory: "+fmt(memory);
  }catch(e){showResult(e.message)}
 }
-$("keys").addEventListener("click",e=>{
+("click",e=>{
  const b=e.target.closest("button");if(!b)return;
  if(b.dataset.insert!==undefined)insertText(b.dataset.insert);
  if(b.dataset.action)action(b.dataset.action);
