@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: linear-gradient(135deg, #10152f, #432371, #176b87);
+    }
+    .calculator {
+      width: 100%;
+      max-width: 390px;
+      padding: 24px;
+      border-radius: 24px;
+      background: #171b32;
+      box-shadow: 0 20px 50px #0007;
+    }
+    h1 { text-align: center; font-size: 23px; }
+    .subtitle {
+      text-align: center;
+      color: #aeb9dc;
+      font-size: 13px;
+    }
+    #display {
+      width: 100%;
+      padding: 18px 12px;
+      margin: 16px 0;
+      border: 1px solid #434b70;
+      border-radius: 12px;
+      background: #0c1024;
+      color: white;
+      text-align: right;
+      font-size: 27px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+    button {
+      min-width: 0;
+      padding: 15px 3px;
+      border: 0;
+      border-radius: 10px;
+      color: white;
+      background: #303858;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.25); }
+    .operator { background: #6945bd; }
+    .special { background: #176b87; }
+    .equals { background: #16a085; }
+    .clear { background: #c44569; }
+    #history {
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 10px;
+      background: #0c1024;
+      color: #c8d2f3;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+    #history h2 { font-size: 15px; }
+    #historyList { padding-left: 18px; }
+    #message { min-height: 18px; color: #ffb7c5; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="calculator">
+    <h1>🧮 Smart Calculator</h1>
+    <p class="subtitle">Basic & Scientific Mathematics</p>
+    <input id="display" value="0" readonly aria-label="Calculator display">
+    <div class="grid">
+      <button class="clear" onclick="clearAll()">AC</button>
+      <button class="special" onclick="backspace()">DEL</button>
+      <button class="operator" onclick="press('%')">%</button>
+      <button class="operator" onclick="press('/')">÷</button>
+
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button class="operator" onclick="press('*')">×</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button class="operator" onclick="press('-')">−</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button class="operator" onclick="press('+')">+</button>
+
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button class="special" onclick="press('(')">(</button>
+      <button class="special" onclick="press(')')">)</button>
+
+      <button class="special" onclick="unary('sqrt')">√x</button>
+      <button class="special" onclick="unary('square')">x²</button>
+      <button class="special" onclick="unary('sin')">sin</button>
+      <button class="special" onclick="unary('cos')">cos</button>
+
+      <button class="special" onclick="unary('tan')">tan</button>
+      <button class="special" onclick="unary('log')">log</button>
+      <button class="special" onclick="unary('ln')">ln</button>
+      <button class="special" onclick="press('**')">xʸ</button>
+
+      <button class="special" onclick="press('Math.PI')">π</button>
+      <button class="special" onclick="press('Math.E')">e</button>
+      <button class="special" onclick="unary('factorial')">n!</button>
+      <button class="equals" onclick="calculate()">=</button>
+    </div>
+    <p id="message" role="status"></p>
+    <section id="history">
+      <h2>Calculation History</h2>
+      <ol id="historyList"></ol>
+      <button class="clear" onclick="clearHistory()">Clear History</button>
+    </section>
+  </main>
+
+  <script>
+    const display = document.getElementById('display');
+    const message = document.getElementById('message');
+    let expression = '';
+    let fresh = false;
+
+    function show() {
+      display.value = expression || '0';
+    }
+
+    function press(value) {
+      message.textContent = '';
+      if (fresh && /[0-9.(]/.test(value)) expression = '';
+      fresh = false;
+      expression += value;
+      show();
+    }
+
+    function clearAll() {
+      expression = '';
+      fresh = false;
+      message.textContent = '';
+      show();
+    }
+
+    function backspace() {
+      expression = expression.slice(0, -1);
+      show();
+    }
+
+    function safeEvaluate(source) {
+      if (!source || !/^[0-9+\-*/%().\sA-Za-z]*$/.test(source))
+        throw Error('Invalid expression');
+
+      const allowed = source.replace(/Math\.(PI|E)/g, '');
+      if (/[A-Za-z]/.test(allowed))
+        throw Error('Invalid expression');
+
+      if (/\/\s*0(?![.\d])/.test(source))
+        throw Error('Cannot divide by zero');
+
+      // Only evaluate the validated arithmetic expression.
+      return Function('"use strict"; return (' + source + ')')();
+    }
+
+    function calculate() {
+      try {
+        const original = expression;
+        const result = safeEvaluate(expression);
+        if (typeof result !== 'number' || !Number.isFinite(result))
+          throw Error('Invalid result');
+
+        expression = String(Number(result.toPrecision(12)));
+        document.getElementById('historyList').insertAdjacentHTML(
+          'afterbegin',
+          '<li>' + escapeHTML(original) + ' = ' +
+          escapeHTML(expression) + '</li>'
+        );
+        message.textContent = '';
+        fresh = true;
+        show();
+      } catch (error) {
+        message.textContent = error.message || 'Check your calculation';
+      }
+    }
+
+    function escapeHTML(text) {
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function unary(operation) {
+      try {
+        const x = safeEvaluate(expression);
+        let result;
+        switch (operation) {
+          case 'sqrt': result = Math.sqrt(x); break;
+          case 'square': result = x * x; break;
+          case 'sin': result = Math.sin(x * Math.PI / 180); break;
+          case 'cos': result = Math.cos(x * Math.PI / 180); break;
+          case 'tan':
+            if (Math.abs(Math.cos(x * Math.PI / 180)) < 1e-12)
+              throw Error('Tangent is undefined here');
+            result = Math.tan(x * Math.PI / 180); break;
+          case 'log': result = Math.log10(x); break;
+          case 'ln': result = Math.log(x); break;
+          case 'factorial':
+            if (x < 0 || !Number.isInteger(x) || x > 170)
+              throw Error('Factorial needs an integer from 0 to 170');
+            result = 1;
+            for (let i = 2; i <= x; i++) result *= i;
+            break;
+        }
+        if (!Number.isFinite(result))
+          throw Error('Invalid input for this function');
+        expression = String(Number(result.toPrecision(12)));
+        fresh = true;
+        show();
+        message.textContent = '';
+      } catch (error) {
+        message.textContent = error.message || 'Enter a valid number first';
+      }
+    }
+
+    function clearHistory() {
+      document.getElementById('historyList').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
