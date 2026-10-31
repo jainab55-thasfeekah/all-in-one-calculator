@@ -3,433 +3,486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10172a">
-<meta name="description" content="Smart Scientific Calculator Pro with scientific functions, statistics, fractions, unit conversion and equation solving.">
-<title>Smart Scientific Calculator Pro</title>
+<title>Advanced All-in-One Calculator</title>
+
 <style>
-:root{--bg:#0b1020;--panel:#151e33;--panel2:#202b43;--text:#edf3ff;--muted:#a6b4cc;--accent:#72e0c1;--blue:#7aa7ff;--danger:#ff8d9a}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#1c3150,var(--bg) 65%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-header{text-align:center;padding:24px 12px 10px}
-header h1{margin:0;font-size:clamp(24px,5vw,36px);letter-spacing:-1px}
-header p{color:var(--muted);margin:8px 0}
-.wrap{max-width:1100px;margin:auto;padding:14px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,1fr);gap:16px}
-.panel{background:rgba(21,30,51,.96);border:1px solid #34415a;border-radius:20px;padding:18px;box-shadow:0 14px 40px #0003;min-width:0}
-.display{background:#080d18;border:1px solid #303c52;border-radius:14px;padding:14px;margin-bottom:12px}
-#expression{width:100%;background:transparent;border:0;color:var(--text);font-size:clamp(22px,4vw,32px);text-align:right;outline:none;min-width:0}
-#result{min-height:28px;text-align:right;color:var(--accent);font-size:19px;overflow-wrap:anywhere;margin-top:8px}
-.small{color:var(--muted);font-size:12px}
-.toolbar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
-button,select,input,textarea{font:inherit}
-button{border:1px solid #3a4965;background:var(--panel2);color:var(--text);border-radius:10px;padding:10px;cursor:pointer;transition:filter .15s,transform .15s}
-button:hover{filter:brightness(1.18)}
-button:active{transform:scale(.97)}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.toolbar button{flex:1}
-.keys{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
-.keys button{min-height:47px;font-size:15px}
-.keys .operator{color:var(--blue)}
-.keys .equal{background:var(--accent);color:#081a18;font-weight:800;border-color:var(--accent)}
-.keys .danger{color:var(--danger)}
-h2{font-size:19px;margin:0 0 12px}
-h3{font-size:15px;margin:0 0 10px}
-.tools{display:grid;gap:12px}
-.tool{background:#0d1425;border:1px solid #303d56;border-radius:14px;padding:14px}
-.field{display:grid;gap:5px;margin-bottom:9px}
-.field label{font-size:12px;color:var(--muted)}
-input,select,textarea{width:100%;min-width:0;background:#172139;color:var(--text);border:1px solid #3a4965;border-radius:9px;padding:10px}
-textarea{resize:vertical}
-.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.actions button{flex:1}
-.output{margin-top:9px;color:var(--accent);font-size:14px;overflow-wrap:anywhere;white-space:pre-wrap}
-.muted{color:var(--muted)}
-.history{max-height:120px;overflow:auto;font-size:13px;color:var(--muted)}
-.history div{padding:5px 0;border-bottom:1px solid #29354a}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 16px 25px}
-@media(max-width:760px){.wrap{grid-template-columns:1fr;padding:10px}.panel{padding:13px}.keys{gap:5px}.keys button{padding:8px 2px;min-height:44px;font-size:14px}.toolbar button{padding:8px 5px}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#10172a,#263b62);
+color:white;min-height:100vh;padding:20px;
+}
+.container{max-width:950px;margin:auto}
+header{text-align:center;margin:20px 0 25px}
+header h1{font-size:30px;color:#7dd3fc}
+header p{color:#cbd5e1;margin-top:8px}
+.calculator{
+background:#17243b;padding:22px;border-radius:20px;
+box-shadow:0 10px 35px #0005;
+}
+.display{
+background:#0b1426;padding:18px;border-radius:12px;
+margin-bottom:15px;
+}
+#expression{
+width:100%;background:transparent;border:0;
+color:white;font-size:28px;text-align:right;outline:none;
+}
+#result{text-align:right;color:#38bdf8;font-size:20px;
+min-height:27px;margin-top:10px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+select,button,input{
+border:0;border-radius:9px;padding:12px;
+font-size:15px;
+}
+select{background:#334155;color:white}
+.grid{
+display:grid;grid-template-columns:repeat(5,1fr);gap:9px;
+}
+button{
+background:#334155;color:white;cursor:pointer;
+font-weight:bold;transition:.2s;
+}
+button:hover{background:#475569;transform:scale(1.03)}
+.operator{background:#075985}
+.science{background:#4338ca}
+.equal{background:#08916d}
+.clear{background:#be123c}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.tabs button.active{background:#0284c7}
+.panel{
+background:#1e293b;padding:18px;border-radius:14px;
+margin-top:15px;
+}
+.panel h3{color:#7dd3fc;margin-bottom:12px}
+.panel input{width:100%;margin:5px 0;background:#e2e8f0;color:#111}
+.panel button{margin:5px 0;background:#0284c7}
+.output{margin-top:12px;color:#38bdf8;white-space:pre-wrap}
+.history{max-height:150px;overflow:auto;color:#cbd5e1}
+.hidden{display:none}
+footer{text-align:center;color:#94a3b8;margin:25px}
+@media(max-width:500px){
+.grid{grid-template-columns:repeat(4,1fr)}
+header h1{font-size:23px}
+.calculator{padding:12px}
+}
 </style>
 </head>
+
 <body>
+<div class="container">
 <header>
-<h1>Smart Scientific Calculator <span style="color:var(--accent)">Pro</span></h1>
-<p>Scientific maths · Fractions · Statistics · Units · Equations</p>
+<h1>⚡ Advanced Calculator</h1>
+<p>All-in-One Scientific & Mathematical Calculator</p>
 </header>
 
-<main class="wrap">
-<section class="panel">
-<h2>Scientific Calculator</h2>
+<div class="calculator">
 <div class="display">
-<div class="small" id="status">Ready · Angle mode: DEG</div>
-<input id="expression" aria-label="Math expression" placeholder="Enter an expression" autocomplete="off" spellcheck="false">
-<div id="result" aria-live="polite">0</div>
+<input id="expression" placeholder="0" autocomplete="off">
+<div id="result">Ready</div>
 </div>
-<div class="toolbar">
-<button id="angleBtn" type="button">DEG</button>
-<button type="button" data-action="mc">MC</button>
-<button type="button" data-action="mr">MR</button>
-<button type="button" data-action="mplus">M+</button>
-<button type="button" data-action="mminus">M−</button>
+
+<div class="controls">
+<select id="angle">
+<option value="DEG">DEG</option>
+<option value="RAD">RAD</option>
+</select>
+<button onclick="backspace()">⌫</button>
+<button onclick="clearAll()" class="clear">AC</button>
+<button onclick="memoryClear()">MC</button>
+<button onclick="memoryRecall()">MR</button>
+<button onclick="memoryAdd()">M+</button>
+<button onclick="memorySubtract()">M-</button>
 </div>
-<div class="keys" id="keys">
-<button data-insert="(">(</button><button data-insert=")">)</button><button data-insert="pi">π</button><button data-insert="e">e</button><button class="danger" data-action="clear">AC</button>
-<button data-insert="sin(">sin</button><button data-insert="cos(">cos</button><button data-insert="tan(">tan</button><button data-insert="sqrt(">√</button><button class="danger" data-action="back">⌫</button>
-<button data-insert="log(">log</button><button data-insert="ln(">ln</button><button data-insert="^2">x²</button><button data-insert="^">xʸ</button><button class="operator" data-insert="/">÷</button>
-<button data-insert="7">7</button><button data-insert="8">8</button><button data-insert="9">9</button><button data-insert="%">%</button><button class="operator" data-insert="*">×</button>
-<button data-insert="4">4</button><button data-insert="5">5</button><button data-insert="6">6</button><button data-insert="!">n!</button><button class="operator" data-insert="-">−</button>
-<button data-insert="1">1</button><button data-insert="2">2</button><button data-insert="3">3</button><button data-insert=".">.</button><button class="operator" data-insert="+">+</button>
-<button data-insert="0">0</button><button data-insert="Ans">Ans</button><button data-insert="abs(">abs</button><button data-action="sign">±</button><button class="equal" data-action="calculate">=</button>
+
+<div class="grid" id="keys">
+<button class="science" data-value="sin(">sin</button>
+<button class="science" data-value="cos(">cos</button>
+<button class="science" data-value="tan(">tan</button>
+<button class="science" data-value="log(">log</button>
+<button class="science" data-value="ln(">ln</button>
+
+<button class="science" data-value="sqrt(">√</button>
+<button class="science" data-value="^2">x²</button>
+<button class="science" data-value="^">xʸ</button>
+<button class="science" data-value="pi">π</button>
+<button class="science" data-value="e">e</button>
+
+<button data-value="7">7</button>
+<button data-value="8">8</button>
+<button data-value="9">9</button>
+<button class="operator" data-value="/">÷</button>
+<button class="operator" data-value="(">(</button>
+
+<button data-value="4">4</button>
+<button data-value="5">5</button>
+<button data-value="6">6</button>
+<button class="operator" data-value="*">×</button>
+<button class="operator" data-value=")">)</button>
+
+<button data-value="1">1</button>
+<button data-value="2">2</button>
+<button data-value="3">3</button>
+<button class="operator" data-value="-">−</button>
+<button class="operator" data-value="%">%</button>
+
+<button data-value="0">0</button>
+<button data-value=".">.</button>
+<button data-value="00">00</button>
+<button class="operator" data-value="+">+</button>
+<button class="equal" onclick="calculate()">=</button>
 </div>
-<div class="tool" style="margin-top:12px">
+</div>
+
+<div class="tabs">
+<button class="active" onclick="showPanel('basic',this)">History</button>
+<button onclick="showPanel('gcd',this)">GCD / LCM</button>
+<button onclick="showPanel('fraction',this)">Fractions</button>
+<button onclick="showPanel('stats',this)">Statistics</button>
+<button onclick="showPanel('converter',this)">Converter</button>
+<button onclick="showPanel('equation',this)">Equation Solver</button>
+</div>
+
+<div id="basic" class="panel">
 <h3>Calculation History</h3>
-<div id="history" class="history">Your recent calculations appear here.</div>
-<div class="actions"><button type="button" id="clearHistory">Clear history</button></div>
-</div>
-<p class="small">Keyboard: numbers and operators, Enter to calculate, Escape to clear, Backspace to delete.</p>
-</section>
-
-<section class="panel tools">
-<div class="tool">
-<h2>GCD &amp; LCM</h2>
-<div class="row">
-<div class="field"><label for="gcdA">First integer</label><input id="gcdA" type="number" step="1" value="12"></div>
-<div class="field"><label for="gcdB">Second integer</label><input id="gcdB" type="number" step="1" value="18"></div>
-</div>
-<div class="actions"><button type="button" id="gcdBtn">Calculate GCD &amp; LCM</button></div>
-<div class="output" id="gcdOut" aria-live="polite"></div>
+<div id="history" class="history">No calculations yet.</div>
+<button onclick="clearHistory()">Clear History</button>
 </div>
 
-<div class="tool">
-<h2>Fractions &amp; Ratios</h2>
-<div class="row">
-<div class="field"><label for="fracN">Numerator</label><input id="fracN" type="number" step="1" value="6"></div>
-<div class="field"><label for="fracD">Denominator</label><input id="fracD" type="number" step="1" value="8"></div>
-</div>
-<button type="button" id="fracBtn">Simplify fraction</button>
-<div class="output" id="fracOut" aria-live="polite"></div>
-<div class="field" style="margin-top:12px"><label for="ratio">Ratio (e.g. 12:18:6)</label><input id="ratio" value="12:18:6"></div>
-<button type="button" id="ratioBtn">Simplify ratio</button>
-<div class="output" id="ratioOut" aria-live="polite"></div>
+<div id="gcd" class="panel hidden">
+<h3>GCD & LCM Calculator</h3>
+<input id="g1" type="number" placeholder="First number">
+<input id="g2" type="number" placeholder="Second number">
+<button onclick="gcdLcm()">Calculate</button>
+<div class="output" id="gout"></div>
 </div>
 
-<div class="tool">
-<h2>Statistics</h2>
-<div class="field"><label for="statsInput">Numbers separated by commas or spaces</label><textarea id="statsInput" rows="2">2, 4, 4, 6, 9</textarea></div>
-<button type="button" id="statsBtn">Calculate statistics</button>
-<div class="output" id="statsOut" aria-live="polite"></div>
+<div id="fraction" class="panel hidden">
+<h3>Fraction Calculator</h3>
+<input id="f1" type="text" placeholder="First fraction e.g. 1/2">
+<input id="f2" type="text" placeholder="Second fraction e.g. 2/3">
+<select id="fop">
+<option value="+">Addition (+)</option>
+<option value="-">Subtraction (-)</option>
+<option value="*">Multiplication (×)</option>
+<option value="/">Division (÷)</option>
+</select>
+<button onclick="fractionCalc()">Calculate</button>
+<div class="output" id="fout"></div>
 </div>
 
-<div class="tool">
-<h2>Unit Converter</h2>
-<div class="field"><label for="unitType">Category</label>
+<div id="stats" class="panel hidden">
+<h3>Statistics Calculator</h3>
+<input id="numbers" placeholder="Enter numbers separated by commas">
+<button onclick="statistics()">Calculate</button>
+<div class="output" id="sout"></div>
+</div>
+
+<div id="converter" class="panel hidden">
+<h3>Unit Converter</h3>
+<input id="unitValue" type="number" placeholder="Enter value">
 <select id="unitType">
-<option value="length">Length</option><option value="mass">Mass / weight</option><option value="temp">Temperature</option><option value="time">Time</option>
-</select></div>
-<div class="row">
-<div class="field"><label for="unitFrom">From</label><select id="unitFrom"></select></div>
-<div class="field"><label for="unitTo">To</label><select id="unitTo"></select></div>
-</div>
-<div class="field"><label for="unitValue">Value</label><input id="unitValue" type="number" value="1" step="any"></div>
-<button type="button" id="unitBtn">Convert</button>
-<div class="output" id="unitOut" aria-live="polite"></div>
+<option value="km-mi">Kilometers → Miles</option>
+<option value="mi-km">Miles → Kilometers</option>
+<option value="kg-lb">Kilograms → Pounds</option>
+<option value="lb-kg">Pounds → Kilograms</option>
+<option value="c-f">Celsius → Fahrenheit</option>
+<option value="f-c">Fahrenheit → Celsius</option>
+<option value="m-ft">Meters → Feet</option>
+<option value="ft-m">Feet → Meters</option>
+</select>
+<button onclick="convertUnit()">Convert</button>
+<div class="output" id="uout"></div>
 </div>
 
-<div class="tool">
-<h2>Equation Solver</h2>
-<p class="small">Solve ax + b = 0, or ax² + bx + c = 0. Enter the coefficients.</p>
-<div class="field"><label for="eqType">Equation type</label><select id="eqType"><option value="linear">Linear: ax + b = 0</option><option value="quadratic">Quadratic: ax² + bx + c = 0</option></select></div>
-<div class="row">
-<div class="field"><label for="coefA">a</label><input id="coefA" type="number" step="any" value="1"></div>
-<div class="field"><label for="coefB">b</label><input id="coefB" type="number" step="any" value="-5"></div>
+<div id="equation" class="panel hidden">
+<h3>Linear Equation Solver</h3>
+<p>Solve ax + b = 0</p>
+<input id="ea" type="number" placeholder="Enter a">
+<input id="eb" type="number" placeholder="Enter b">
+<button onclick="solveEquation()">Solve</button>
+<div class="output" id="eout"></div>
 </div>
-<div class="field" id="coefCWrap" hidden><label for="coefC">c</label><input id="coefC" type="number" step="any" value="6"></div>
-<button type="button" id="solveBtn">Solve equation</button>
-<div class="output" id="eqOut" aria-live="polite"></div>
+
+<footer>Advanced All-in-One Calculator | Built with HTML, CSS & JavaScript</footer>
 </div>
-</section>
-</main>
-<footer>Smart Scientific Calculator Pro · Built with HTML, CSS and JavaScript</footer>
 
 <script>
-"use strict";
 const $ = id => document.getElementById(id);
-let angleMode = "DEG";
 let memory = 0;
-let lastAnswer = 0;
-let historyItems = [];
+let history = [];
+
+function insertText(value){
+const input=$("expression");
+const start=input.selectionStart;
+const end=input.selectionEnd;
+input.setRangeText(value,start,end,"end");
+input.focus();
+}
+
+$("keys").addEventListener("click",function(event){
+const button=event.target.closest("button[data-value]");
+if(button) insertText(button.dataset.value);
+});
+
+function clearAll(){
+$("expression").value="";
+$("result").textContent="Ready";
+$("expression").focus();
+}
+
+function backspace(){
+const input=$("expression");
+const start=input.selectionStart;
+const end=input.selectionEnd;
+if(start!==end){
+input.setRangeText("",start,end,"end");
+}else if(start>0){
+input.setRangeText("",start-1,start,"end");
+}
+input.focus();
+}
+
+function tokenize(expression){
+let tokens=expression.match(
+/(?:\d+\.?\d*|\.\d+)|(?:sin|cos|tan|sqrt|log|ln|pi|e)|[()+*/%^,-]/g
+);
+if(!tokens || tokens.join("")!==expression.replace(/\s/g,""))
+throw Error("Invalid expression");
+return tokens;
+}
+
+function evaluate(expression){
+let tokens=tokenize(expression);
+let pos=0;
+
+function peek(){return tokens[pos]}
+function take(){return tokens[pos++]}
+
+function primary(){
+let t=take();
+if(t==="("){
+let v=add();
+if(take()!==")")throw Error("Missing )");
+return v;
+}
+if(t==="+" )return primary();
+if(t==="-")return -primary();
+
+if(t==="pi")return Math.PI;
+if(t==="e")return Math.E;
+
+if(["sin","cos","tan","sqrt","log","ln"].includes(t)){
+if(take()!=="(")throw Error("Missing (");
+let x=add();
+if(take()!==")")throw Error("Missing )");
+
+if(t==="sin"||t==="cos"||t==="tan"){
+if($("angle").value==="DEG")x*=Math.PI/180;
+if(t==="sin")return Math.sin(x);
+if(t==="cos")return Math.cos(x);
+if(t==="tan")return Math.tan(x);
+}
+if(t==="sqrt")return Math.sqrt(x);
+if(t==="log")return Math.log10(x);
+return Math.log(x);
+}
+if(!t||!/^(\d+\.?\d*|\.\d+)$/.test(t))
+throw Error("Invalid number");
+return Number(t);
+}
+
+function power(){
+let x=primary();
+if(peek()==="^"){take();x=Math.pow(x,power())}
+return x;
+}
+function unary(){
+return power();
+}
+function mul(){
+let x=unary();
+while(["*","/","%"].includes(peek())){
+let op=take(),y=unary();
+if(op==="*")x*=y;
+if(op==="/")x/=y;
+if(op==="%")x%=y;
+}
+return x;
+}
+function add(){
+let x=mul();
+while(["+","-"].includes(peek())){
+let op=take(),y=mul();
+x=op==="+"?x+y:x-y;
+}
+return x;
+}
+
+let answer=add();
+if(pos!==tokens.length)throw Error("Invalid expression");
+if(!Number.isFinite(answer))throw Error("Math error");
+return answer;
+}
+
+function calculate(){
+try{
+let expression=$("expression").value.trim();
+if(!expression)return;
+let answer=evaluate(expression);
+$("result").textContent="= "+Number(answer.toPrecision(12));
+history.unshift(expression+" = "+answer);
+$("history").innerHTML=history.map(x=>"<div>"+escapeHTML(x)+"</div>").join("");
+}catch(error){
+$("result").textContent="Error: "+error.message;
+}
+}
+
+function escapeHTML(str){
+return String(str).replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#39;"
+})[c]);
+}
+
+function memoryClear(){memory=0}
+function memoryRecall(){insertText(String(memory))}
+function memoryAdd(){
+try{memory+=evaluate($("expression").value)}catch(e){}
+}
+function memorySubtract(){
+try{memory-=evaluate($("expression").value)}catch(e){}
+}
+
+function showPanel(id,button){
+document.querySelectorAll(".panel").forEach(p=>p.classList.add("hidden"));
+$(id).classList.remove("hidden");
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+}
+
+function clearHistory(){
+history=[];
+$("history").textContent="No calculations yet.";
+}
 
 function gcd(a,b){
- a=Math.abs(a); b=Math.abs(b);
- while(b){const t=b;b=a%b;a=t}
- return a;
+a=Math.abs(a);b=Math.abs(b);
+while(b){[a,b]=[b,a%b]}
+return a;
 }
-function finite(n){return Number.isFinite(n)}
-function fmt(n){
- if(!finite(n)) throw Error("Result is not a finite number.");
- if(Object.is(n,-0)) n=0;
- return Number(n.toPrecision(12)).toString();
+
+function gcdLcm(){
+let a=Number($("g1").value),b=Number($("g2").value);
+if(!Number.isSafeInteger(a)||!Number.isSafeInteger(b)){
+$("gout").textContent="Enter valid integers.";
+return;
 }
-function tokenize(source){
- const s=source.replace(/π/g,"pi").replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-");
- const tokens=[];
- let i=0;
- while(i<s.length){
-  if(/\s/.test(s[i])){i++;continue}
-  const rest=s.slice(i);
-  const number=rest.match(/^(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/i);
-  if(number){tokens.push({type:"num",value:Number(number[0])});i+=number[0].length;continue}
-  const ident=rest.match(/^[a-zA-Z]+/);
-  if(ident){
-   const word=ident[0].toLowerCase();
-   if(!["pi","e","ans","sin","cos","tan","sqrt","log","ln","abs","floor","ceil","round","fact"].includes(word)) throw Error("Unknown name: "+word);
-   tokens.push({type:"id",value:word});i+=ident[0].length;continue;
-  }
-  if("+-*/%^!()".includes(s[i])){tokens.push({type:s[i],value:s[i]});i++;continue}
-  throw Error("Invalid character: "+s[i]);
- }
- if(!tokens.length) throw Error("Enter a calculation first.");
- // Allow familiar implicit multiplication, such as 2pi and 2(3+4).
- const expanded=[];
- for(let j=0;j<tokens.length;j++){
-  const cur=tokens[j],prev=expanded[expanded.length-1];
-  const prevEnds=prev&&(prev.type==="num"||prev.type===")"||prev.type==="!");
-  const curStarts=cur.type==="num"||cur.type==="id"||cur.type==="(";
-  if(prevEnds&&curStarts) expanded.push({type:"*",value:"*"});
-  expanded.push(cur);
- }
- return expanded;
+let g=gcd(a,b);
+$("gout").textContent="GCD: "+g+"\nLCM: "+(g===0?0:Math.abs(a/g*b));
 }
-function evaluate(source){
- const t=tokenize(source);
- let p=0;
- const peek=()=>t[p];
- const eat=type=>{if(peek()&&peek().type===type){p++;return true}return false};
- function primary(){
-  if(eat("+")) return primary();
-  if(eat("-")) return -primary();
-  if(eat("(")){
-   const n=add();
-   if(!eat(")")) throw Error("Missing closing parenthesis.");
-   return n;
-  }
-  const tok=peek();
-  if(!tok) throw Error("Incomplete expression.");
-  if(tok.type==="num"){p++;return tok.value}
-  if(tok.type==="id"){
-   p++;
-   const name=tok.value;
-   if(name==="pi") return Math.PI;
-   if(name==="e") return Math.E;
-   if(name==="ans") return lastAnswer;
-   if(["sin","cos","tan","sqrt","log","ln","abs","floor","ceil","round","fact"].includes(name)){
-    if(eat("(")){
-     const x=add();
-     if(!eat(")")) throw Error("Missing closing parenthesis.");
-     return applyFn(name,x);
-    }
-    const x=primary();
-    return applyFn(name,x);
-   }
-  }
-  throw Error("Expected a number or function.");
- }
- function postfix(){
-  let n=primary();
-  while(true){
-   if(eat("!")) n=factorial(n);
-   else if(eat("%")) n=n/100;
-   else break;
-  }
-  return n;
- }
- function power(){
-  let n=postfix();
-  if(eat("^")) n=Math.pow(n,power());
-  return n;
- }
- function multiply(){
-  let n=power();
-  while(peek()&&["*","/","%"].includes(peek().type)){
-   const op=t[p++].type,x=power();
-   if(op==="/"&&x===0) throw Error("Cannot divide by zero.");
-   if(op==="%"&&x===0) throw Error("Cannot use remainder with zero.");
-   n=op==="*"?n*x:op==="/"?n/x:n%x;
-  }
-  return n;
- }
- function add(){
-  let n=multiply();
-  while(peek()&&(peek().type==="+"||peek().type==="-")){
-   const op=t[p++].type,x=multiply();
-   n=op==="+"?n+x:n-x;
-  }
-  return n;
- }
- const result=add();
- if(p!==t.length) throw Error("Check the expression near '"+t[p].value+"'.");
- if(!finite(result)) throw Error("Invalid or out-of-range calculation.");
- return result;
+
+function parseFraction(value){
+let parts=value.trim().split("/");
+if(parts.length===1){
+let n=Number(parts[0]);
+if(!Number.isFinite(n))throw Error("Invalid fraction");
+return [n,1];
 }
-function factorial(n){
- if(n<0||!Number.isInteger(n)||n>170) throw Error("Factorial needs an integer from 0 to 170.");
- let out=1;
- for(let i=2;i<=n;i++) out*=i;
- return out;
+if(parts.length!==2)throw Error("Use format a/b");
+let n=Number(parts[0]),d=Number(parts[1]);
+if(!Number.isFinite(n)||!Number.isInteger(n)||
+!Number.isFinite(d)||!Number.isInteger(d)||d===0)
+throw Error("Invalid fraction");
+return [n,d];
 }
-function applyFn(name,x){
- if(name==="sqrt"){if(x<0) throw Error("Square root needs a non-negative number.");return Math.sqrt(x)}
- if(name==="abs") return Math.abs(x);
- if(name==="floor") return Math.floor(x);
- if(name==="ceil") return Math.ceil(x);
- if(name==="round") return Math.round(x);
- if(name==="fact") return factorial(x);
- if(name==="log"){if(x<=0) throw Error("log needs a positive number.");return Math.log10(x)}
- if(name==="ln"){if(x<=0) throw Error("ln needs a positive number.");return Math.log(x)}
- if(name==="sin"||name==="cos"||name==="tan"){
-  const a=angleMode==="DEG"?x*Math.PI/180:x;
-  if(name==="tan"&&Math.abs(Math.cos(a))<1e-12) throw Error("Tangent is undefined at this angle.");
-  return Math[name](a);
- }
- throw Error("Unsupported function.");
+
+function fractionCalc(){
+try{
+let [a,b]=parseFraction($("f1").value);
+let [c,d]=parseFraction($("f2").value);
+let op=$("fop").value;
+let n,den;
+if(op==="+"){n=a*d+c*b;den=b*d}
+if(op==="-"){n=a*d-c*b;den=b*d}
+if(op==="*"){n=a*c;den=b*d}
+if(op==="/"){n=a*d;den=b*c}
+if(den===0)throw Error("Division by zero");
+if(den<0){n=-n;den=-den}
+let g=gcd(n,den);
+$("fout").textContent="Result: "+n/g+"/"+den/g+
+"\nDecimal: "+(n/den);
+}catch(e){$("fout").textContent=e.message}
 }
-function showResult(text){$("result").textContent=text}
-function currentValue(){
- const source=$("expression").value.trim();
- if(!source) throw Error("Enter a calculation first.");
- return evaluate(source);
+
+function statistics(){
+let arr=$("numbers").value.split(",").map(Number);
+if(!arr.length||arr.some(x=>!Number.isFinite(x))){
+$("sout").textContent="Enter valid comma-separated numbers.";
+return;
 }
-function calculate(){
- try{
-  const n=currentValue();
-  lastAnswer=n;
-  const value=fmt(n);
-  showResult(value);
-  historyItems.unshift({expression:$("expression").value,result:value});
-  historyItems=historyItems.slice(0,8);
-  renderHistory();
-  $("status").textContent="Calculated successfully · "+angleMode;
- }catch(e){showResult(e.message);$("status").textContent="Please check your expression."}
+let sorted=[...arr].sort((a,b)=>a-b);
+let sum=arr.reduce((a,b)=>a+b,0);
+let median=sorted.length%2?
+sorted[Math.floor(sorted.length/2)]:
+(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2;
+let counts=new Map();
+arr.forEach(x=>counts.set(x,(counts.get(x)||0)+1));
+let max=Math.max(...counts.values());
+let modes=max===1?"No mode":
+[...counts].filter(x=>x[1]===max).map(x=>x[0]).join(", ");
+let variance=arr.reduce((s,x)=>s+(x-sum/arr.length)**2,0)/arr.length;
+$("sout").textContent=
+"Count: "+arr.length+
+"\nSum: "+sum+
+"\nMean: "+sum/arr.length+
+"\nMedian: "+median+
+"\nMode: "+modes+
+"\nPopulation variance: "+variance+
+"\nStandard deviation: "+Math.sqrt(variance);
 }
-function renderHistory(){
- const el=$("history");el.replaceChildren();
- if(!historyItems.length){el.textContent="Your recent calculations appear here.";return}
- historyItems.forEach(item=>{
-  const line=document.createElement("div");
-  line.textContent=item.expression+" = "+item.result;
-  el.appendChild(line);
- });
+
+function convertUnit(){
+let v=Number($("unitValue").value);
+if($("unitValue").value.trim()===""||!Number.isFinite(v)){
+$("uout").textContent="Enter a valid value.";
+return;
 }
-function insertText(value){
- const input=$("expression"),start=input.selectionStart??input.value.length,end=input.selectionEnd??input.value.length;
- input.setRangeText(value,start,end,"end");input.focus();
-}
-function action(name){
- if(name==="calculate"){calculate();return}
- if(name==="clear"){$("expression").value="";showResult("0");$("status").textContent="Ready · Angle mode: "+angleMode;return}
- if(name==="back"){
-  const input=$("expression"),start=input.selectionStart??input.value.length,end=input.selectionEnd??input.value.length;
-  if(start!==end) input.setRangeText("",start,end,"end");
-  else if(start>0) input.setRangeText("",start-1,start,"end");
-  input.focus();return;
- }
- if(name==="sign"){insertText("-(");insertText(")");return}
- try{
-  if(name==="mc") memory=0;
-  if(name==="mr") insertText(fmt(memory));
-  if(name==="mplus") memory+=currentValue();
-  if(name==="mminus") memory-=currentValue();
-  if(name==="mc"||name==="mplus"||name==="mminus") $("status").textContent="Memory: "+fmt(memory);
- }catch(e){showResult(e.message)}
-}
-("click",e=>{
- const b=e.target.closest("button");if(!b)return;
- if(b.dataset.insert!==undefined)insertText(b.dataset.insert);
- if(b.dataset.action)action(b.dataset.action);
-});
-document.querySelector(".toolbar").addEventListener("click",e=>{
- const b=e.target.closest("button");if(b&&b.dataset.action)action(b.dataset.action);
-});
-$("angleBtn").addEventListener("click",()=>{
- angleMode=angleMode==="DEG"?"RAD":"DEG";
- $("angleBtn").textContent=angleMode;
- $("status").textContent="Ready · Angle mode: "+angleMode;
-});
-$("expression").addEventListener("keydown",e=>{
- if(e.key==="Enter"){e.preventDefault();calculate()}
- if(e.key==="Escape"){action("clear")}
-});
-$("clearHistory").addEventListener("click",()=>{historyItems=[];renderHistory()});
-function integerField(id,label){
- const v=$(id).value.trim();
- if(v==="") throw Error("Enter "+label+".");
- const n=Number(v);
- if(!Number.isSafeInteger(n)) throw Error(label+" must be a safe integer.");
- return n;
-}
-$("gcdBtn").addEventListener("click",()=>{
- try{
-  const a=integerField("gcdA","the first integer"),b=integerField("gcdB","the second integer");
-  const g=gcd(a,b);
-  const l=(a===0||b===0)?0:Math.abs((a/g)*b);
-  $("gcdOut").textContent="GCD = "+g+"\nLCM = "+l;
- }catch(e){$("gcdOut").textContent=e.message}
-});
-$("fracBtn").addEventListener("click",()=>{
- try{
-  let n=integerField("fracN","the numerator"),d=integerField("fracD","the denominator");
-  if(d===0) throw Error("Denominator cannot be zero.");
-  if(d<0){n=-n;d=-d}
-  const g=gcd(n,d);
-  $("fracOut").textContent="Simplified fraction: "+(n/g)+"/"+(d/g)+"\nDecimal: "+fmt(n/d);
- }catch(e){$("fracOut").textContent=e.message}
-});
-$("ratioBtn").addEventListener("click",()=>{
- try{
-  const parts=$("ratio").value.split(":").map(s=>{
-   if(!s.trim()) throw Error("Enter all ratio values.");
-   const n=Number(s.trim());
-   if(!Number.isSafeInteger(n)) throw Error("Ratio values must be safe integers.");
-   return n;
-  });
-  if(parts.length<2) throw Error("Enter at least two values separated by colons.");
-  if(parts.every(n=>n===0)) throw Error("A ratio cannot contain only zeros.");
-  const g=parts.reduce((a,b)=>gcd(a,b),0);
-  $("ratioOut").textContent="Simplified ratio: "+parts.map(n=>n/g).join(":");
- }catch(e){$("ratioOut").textContent=e.message}
-});
-$("statsBtn").addEventListener("click",()=>{
- try{
-  const raw=$("statsInput").value.trim();
-  if(!raw) throw Error("Enter some numbers.");
-  const nums=raw.split(/[\s,;]+/).map(Number);
-  if(nums.some(n=>!finite(n))) throw Error("Use valid numbers separated by commas or spaces.");
-  if(nums.length>10000) throw Error("Please enter no more than 10,000 values.");
-  const sorted=[...nums].sort((a,b)=>a-b);
-  const sum=nums.reduce((a,b)=>a+b,0);
-  const mean=sum/nums.length;
-  const mid=Math.floor(sorted.length/2);
-  const median=sorted.length%2?sorted[mid]:(sorted[mid-1]+sorted[mid])/2;
-  const freq=new Map();nums.forEach(n=>freq.set(n,(freq.get(n)||0)+1));
-  const maxFreq=Math.max(...freq.values());
-  const modes=maxFreq===1?[]:[...freq].filter(([,f])=>f===maxFreq).map(([n])=>n);
-  const variance=nums.reduce((a,n)=>a+(n-mean)**2,0)/nums.length;
-  $("statsOut").textContent=
-   "Count: "+nums.length+
-   "\nSum: "+fmt(sum)+
-   "\nMean: "+fmt(mean)+
-   "\nMedian: "+fmt(median)+
-   "\nMode: "+(modes.length?modes.map(fmt).join(", "):"No mode")+
-   "\nRange: "+fmt(sorted[sorted.length-1]-sorted[0])+
-   "\nPopulation variance: "+fmt(variance)+
-   "\nPopulation standard deviation: "+fmt(Math.sqrt(variance));
- }catch(e){$("statsOut").textContent=e.message}
-});
-const units={
- length:{m:1,km:1000,cm:.01,mm:.001,mi:1609.344,yd:.9144,ft:.3048,in:.0254},
- mass:{kg:1,g:.001,mg:.000001,lb:.45359237,oz:.028349523125,t:1000},
- time:{s:1,min:60,h:3600,day:86400,ms:.001}
+let conversions={
+"km-mi":v=>v*0.621371,
+"mi-km":v=>v/0.621371,
+"kg-lb":v=>v*2.20462,
+"lb-kg":v=>v/2.20462,
+"c-f":v=>v*9/5+32,
+"f-c":v=>(v-32)*5/9,
+"m-ft":v=>v*3.28084,
+"ft-m":v=>v/3.28084
 };
-const unitLabels={
- length:{m:"Meters (m)",km:"Kilometers (km)",cm:"Centimeters (cm)",mm:"Millimeters (mm)",mi:"Miles (mi)",yd:"Yards (yd)",ft:"Feet (ft)",in:"Inches (in)"},
- mass:{kg:"Kilograms (kg)",g:"Grams (g)",mg:"Milligrams (mg)",lb:"Pounds (lb)",oz:"Ounces (oz)",t:"Metric tonnes (t)"},
- time:{s:"Seconds (s)",min:"Minutes (min)",h:"Hours
+$("uout").textContent="Result: "+conversions[$("unitType").value](v);
+}
+
+function solveEquation(){
+let a=Number($("ea").value),b=Number($("eb").value);
+if($("ea").value===""||$("eb").value===""||
+!Number.isFinite(a)||!Number.isFinite(b)){
+$("eout").textContent="Enter valid coefficients.";
+return;
+}
+if(a===0){
+$("eout").textContent=b===0?
+"Infinitely many solutions.":"No solution.";
+return;
+}
+$("eout").textContent="x = "+(-b/a);
+}
+
+$("expression").addEventListener("keydown",function(e){
+if(e.key==="Enter"){
+e.preventDefault();calculate();
+}
+if(e.key==="Escape")clearAll();
+});
+
+</script>
+</body>
+</html>
